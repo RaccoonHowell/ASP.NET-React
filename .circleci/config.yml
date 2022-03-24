@@ -5,16 +5,6 @@ orbs:
   windows: circleci/windows@2.2.0
   node: circleci/node@4.7.0
 
-  workflows:
-  matrix-tests:
-    jobs:
-      - node/test:
-          version: 13.11.0
-      - node/test:
-          version: 12.16.0
-      - node/test:
-          version: 10.19.0
-
 jobs:
   build:
     description: Build application with Release configuration
@@ -31,7 +21,10 @@ jobs:
       - run:
           name: "Build Application according to some given configuration"
           command: dotnet.exe build --configuration Release
-      
+      - run:
+          name: "Install npm"
+          command: npm install
+
 workflows:
   heroku_deploy:
     jobs:
