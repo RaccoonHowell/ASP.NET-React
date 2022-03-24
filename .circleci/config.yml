@@ -3,8 +3,8 @@ version: 2.1
 orbs:
   heroku: circleci/heroku@1.2.6
   windows: circleci/windows@2.2.0
-  node: circleci/node@4.7.0
-    npm-config: cobli/npm-config@1.0.0
+  node: circleci/node@16.14.1
+    
 jobs:
   build:
     description: Build application with Release configuration
