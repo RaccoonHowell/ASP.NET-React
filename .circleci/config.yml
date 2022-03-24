@@ -3,8 +3,7 @@ version: 2.1
 orbs:
   heroku: circleci/heroku@1.2.6
   windows: circleci/windows@2.2.0
-  node: circleci/node@5.0.1
-    
+
 jobs:
   build:
     description: Build application with Release configuration
@@ -21,44 +20,7 @@ jobs:
       - run:
           name: "Build Application according to some given configuration"
           command: dotnet.exe build --configuration Release
-      - run:
-          name: "Install npm"
-          command: npm install
-
-          build:
-    working_directory: ~/backend_api
-    executor: node/default
-    steps:
-      - checkout
-      - node/install-npm
-      - node/install-packages:
-          app-dir: ~/backend_api
-          cache-path: node_modules
-          override-ci-command: npm i
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-
-  test:
-    docker:
-      - image: cimg/node:current
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: Test
-          command: npm test
-
 workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - build
-      - test:
-          requires:
-            - build
-            
   heroku_deploy:
     jobs:
       - heroku/deploy-via-git
