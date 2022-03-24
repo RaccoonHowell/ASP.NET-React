@@ -20,7 +20,9 @@ jobs:
       - run:
           name: "Build Application according to some given configuration"
           command: dotnet.exe build --configuration Release
-          run: npm install
+      - run:
+          name: "Run npm install"
+          command: npm install
 workflows:
   heroku_deploy:
     jobs:
